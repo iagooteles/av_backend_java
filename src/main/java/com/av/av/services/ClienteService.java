@@ -1,6 +1,7 @@
 package com.av.av.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -17,19 +18,39 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public List<ClienteDTO> listarTodosClientes() {
+    public List<ClienteDTO> listarClientes() {
         List<Cliente> clientesListados = clienteRepository.findAll();
         return clientesListados.stream()
                                .map(this::toDTO)
                                .toList();
     }
 
-    public ClienteDTO salvarCliente(Cliente cliente) {
+    public Optional<ClienteDTO> buscarPortId(Long id) {
+        return clienteRepository.findById(id).map(this::toDTO);
+    }
+
+    public ClienteDTO criarCliente(Cliente cliente) {
         Cliente clienteSalvo = clienteRepository.save(cliente);
         return toDTO(clienteSalvo);
     }
 
 
+    public ClienteDTO atualizarCliente(Long id, Cliente updatedCliente) {
+        return clienteRepository.findById(id)
+                .map( cliente -> {
+                    cliente.setNome(updatedCliente.getNome());
+                    cliente.setCpf(updatedCliente.getCpf());
+                    cliente.setEmail(updatedCliente.getEmail());
+                    cliente.setDataNascimento(updatedCliente.getDataNascimento());
+                    cliente.setEndereco(updatedCliente.getEndereco());
+                    cliente.setTelefone(updatedCliente.getTelefone());
+                    cliente.setSenha(updatedCliente.getSenha());
+
+                    Cliente clienteSaved = clienteRepository.save(cliente);
+                    return toDTO(clienteSaved);
+
+                }).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    }
 
     // outros métodos 
 
