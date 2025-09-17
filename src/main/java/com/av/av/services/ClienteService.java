@@ -51,9 +51,10 @@ public class ClienteService {
 
                 }).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
     }
-
-    // outros métodos 
-
+    
+    public void excluirCliente(Long id) {
+        clienteRepository.deleteById(id);
+    }
     
     private ClienteDTO toDTO(Cliente cliente) {
         ClienteDTO dto = new ClienteDTO();

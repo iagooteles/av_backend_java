@@ -3,13 +3,8 @@ package com.av.av.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.av.av.dto.ClienteDTO;
 import com.av.av.entity.Cliente;
@@ -43,6 +38,12 @@ public class ClienteController {
     @PutMapping("/{id}")
     public ClienteDTO atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
         return clienteService.atualizarCliente(id, cliente);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluirCliente(@PathVariable Long id) {
+        clienteService.excluirCliente(id);
+        return ResponseEntity.noContent().build();
     }
     
 }
