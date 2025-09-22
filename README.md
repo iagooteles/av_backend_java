@@ -8,7 +8,9 @@ A API realiza operações CRUD (Create, Read, Update, Delete) para gerenciar cli
 ## 🚀 Tecnologias Utilizadas
 - Java 17+
 - Spring Boot
-- Spring Web
-- Maven
 
 ---
+
+## Conexão H2
+
+- jdbc:h2:file:./data/bancodb
