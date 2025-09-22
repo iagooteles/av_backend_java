@@ -34,7 +34,6 @@ public class ClienteService {
         return toDTO(clienteSalvo);
     }
 
-
     public ClienteDTO atualizarCliente(Long id, Cliente updatedCliente) {
         return clienteRepository.findById(id)
                 .map( cliente -> {
